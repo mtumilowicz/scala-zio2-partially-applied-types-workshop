@@ -8,6 +8,7 @@ lazy val root = (project in file("."))
     name := "scala-zio2-tag-partially-applied-types",
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % "2.0.9",
+      "dev.zio" %% "izumi-reflect" % "2.2.5",
       "dev.zio" %% "zio-test" % "2.0.9" % Test
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
