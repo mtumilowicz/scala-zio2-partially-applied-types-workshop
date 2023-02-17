@@ -5,11 +5,15 @@ import io.circe.{Codec, Decoder, Encoder, Json}
 import scala.collection.mutable
 
 sealed trait EntityId
+
 case class UserId(raw: String) extends EntityId
+
 object UserId {
   implicit val codec: Codec[UserId] = deriveCodec[UserId]
 }
+
 case class AccountId(raw: String) extends EntityId
+
 object AccountId {
   implicit val codec: Codec[AccountId] = deriveCodec[AccountId]
 }
@@ -19,10 +23,13 @@ sealed trait Entity {
 }
 
 case class User(id: UserId) extends Entity
+
 object User {
   implicit val codec: Codec[User] = deriveCodec[User]
 }
+
 case class Account(id: AccountId) extends Entity
+
 object Account {
   implicit val codec: Codec[Account] = deriveCodec[Account]
 }
@@ -36,14 +43,19 @@ class MMap() {
 
   def get[T <: Entity : Decoder](rootKey: String, entityId: EntityId): Either[String, T] =
     map.get(rootKey) match {
-      case Some(value) =>
-        value.get(entityId) match {
-          case Some(value) => value.as[T] match {
-            case Left(error) => Left(s"Cannot parse json: $error")
-            case Right(value) => Right(value)
-          }
-          case None => Left(s"No entity for: $entityId in $rootKey")
-        }
+      case Some(jsonMap) => get(jsonMap, entityId)
       case None => Left(s"No collection for $rootKey")
+    }
+
+  private def get[T <: Entity : Decoder](jsonMap: mutable.Map[EntityId, Json], id: EntityId): Either[String, T] =
+    jsonMap.get(id) match {
+      case Some(json) => parse(json)
+      case None => Left(s"No entity for: $id")
+    }
+
+  private def parse[T <: Entity : Decoder](json: Json): Either[String, T] =
+    json.as[T] match {
+      case Left(error) => Left(s"Cannot parse json: $error")
+      case Right(value) => Right(value)
     }
 }
