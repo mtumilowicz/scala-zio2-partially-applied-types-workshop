@@ -8,19 +8,19 @@ object MMapSpec extends ZIOSpecDefault {
 
       mmap.put("users", User(UserId("1")))
 
-      assertTrue(mmap.get[User]("users", UserId("1")) == Right(User(UserId("1"))))
+      assertTrue(mmap.get[User, UserId]("users", UserId("1")) == Right(User(UserId("1"))))
     },
     test("bb") {
       val mmap = new MMap()
 
-      assertTrue(mmap.get[User]("users", UserId("1")) == Left("No collection for users"))
+      assertTrue(mmap.get[User, UserId]("users", UserId("1")) == Left("No collection for root: users"))
     },
     test("bbb") {
       val mmap = new MMap()
 
       mmap.put("users", User(UserId("1")))
 
-      assertTrue(mmap.get[User]("users", UserId("2")) == Left("No entity for: UserId(2)"))
+      assertTrue(mmap.get[User, UserId]("users", UserId("2")) == Left("No entity for id: 2"))
     }
   )
 }

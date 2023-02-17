@@ -12,6 +12,7 @@ lazy val root = (project in file("."))
       "io.circe" %% "circe-core" % "0.14.4",
       "io.circe" %% "circe-parser" % "0.14.4",
       "io.circe" %% "circe-generic" % "0.14.4",
+      "org.typelevel" %% "cats-core" % "2.9.0",
       "dev.zio" %% "zio-test" % "2.0.9" % Test
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
