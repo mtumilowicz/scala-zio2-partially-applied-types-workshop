@@ -9,6 +9,9 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % "2.0.9",
       "dev.zio" %% "izumi-reflect" % "2.2.5",
+      "io.circe" %% "circe-core" % "0.14.4",
+      "io.circe" %% "circe-parser" % "0.14.4",
+      "io.circe" %% "circe-generic" % "0.14.4",
       "dev.zio" %% "zio-test" % "2.0.9" % Test
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
