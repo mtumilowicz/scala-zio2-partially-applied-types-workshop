@@ -6,14 +6,22 @@ import io.circe.{Codec, Decoder, Encoder, Json}
 
 import scala.collection.mutable
 
-class MMap() {
+class MMap2() {
   val map = mutable.Map[String, mutable.Map[EntityId, Json]]()
 
-  def put[T <: Entity : Encoder](rootKey: String, entity: T): Unit = {
+  def putUser(entity: User): Unit = put[User](MMapKey.users, entity)
+
+  def putAccount(entity: Account): Unit = put[Account](MMapKey.accounts, entity)
+
+  def getUser(entityId: UserId): Either[String, User] = get[User, UserId](MMapKey.users, entityId)
+
+  def getAccount(entityId: AccountId): Either[String, Account] = get[Account, AccountId](MMapKey.accounts, entityId)
+
+  private def put[T <: Entity : Encoder](rootKey: String, entity: T): Unit = {
     map.getOrElseUpdate(rootKey, mutable.Map()).put(entity.id, entity.asJson)
   }
 
-  def get[T <: Entity : Decoder, K <: EntityId : Show](rootKey: String, entityId: K): Either[String, T] =
+  private def get[T <: Entity : Decoder, K <: EntityId : Show](rootKey: String, entityId: K): Either[String, T] =
     map.get(rootKey) match {
       case Some(jsonMap) => get(jsonMap, entityId)
       case None => Left(show"No collection for root: $rootKey")
