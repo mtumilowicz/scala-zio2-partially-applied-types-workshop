@@ -1,11 +1,11 @@
-import io.github.gaelrenoux.tranzactio.{DatabaseOps, DbException}
+package app
+
 import io.github.gaelrenoux.tranzactio.doobie.Connection
-import zio._
+import io.github.gaelrenoux.tranzactio.{DatabaseOps, DbException}
 import zio.Console.printLine
+import zio._
 
 import java.io.IOException
-import java.util.UUID
-import scala.collection.mutable
 
 object Main extends ZIOAppDefault {
 

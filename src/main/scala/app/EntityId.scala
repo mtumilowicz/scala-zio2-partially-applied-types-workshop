@@ -1,6 +1,8 @@
+package app
+
 import cats.Show
- import io.circe.Codec
- import io.circe.generic.semiauto.deriveCodec
+import io.circe.Codec
+import io.circe.generic.semiauto.deriveCodec
 
  sealed trait EntityId
 
