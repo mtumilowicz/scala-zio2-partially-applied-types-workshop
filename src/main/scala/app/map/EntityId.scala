@@ -1,4 +1,4 @@
-package app
+package app.map
 
 import cats.Show
 import io.circe.Codec
