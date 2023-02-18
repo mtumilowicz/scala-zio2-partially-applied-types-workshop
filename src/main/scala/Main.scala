@@ -1,7 +1,11 @@
+import io.github.gaelrenoux.tranzactio.{DatabaseOps, DbException}
+import io.github.gaelrenoux.tranzactio.doobie.Connection
 import zio._
 import zio.Console.printLine
 
 import java.io.IOException
+import java.util.UUID
+import scala.collection.mutable
 
 object Main extends ZIOAppDefault {
 
@@ -33,4 +37,22 @@ object Main extends ZIOAppDefault {
     def apply[R, E, A](f: Service => ZIO[R, E, A])(implicit tag: Tag[Service]): ZIO[R with Service, E, A] =
       ZIO.service[Service].flatMap(service => f(service))
   }
+
+  def a[C : Tag, R, E, A](zio: ZIO[R, E, A]): ZIO[R with DatabaseOps.ServiceOps[C], Either[DbException, E], A] = for {
+    db <- ZIO.service[DatabaseOps.ServiceOps[C]]
+    result <- db.transaction[R, E, A](zio)
+  } yield result
+
+  def a2[C] = new InDbTransactionPartiallyApplied[C]
+
+  val l5 = a2[Connection](ZIO.succeed(5))
+
+  final class InDbTransactionPartiallyApplied[C] {
+    def apply[R, E, A](zio: ZIO[R, E, A])(implicit tag: Tag[C]): ZIO[R with DatabaseOps.ServiceOps[C], Either[DbException, E], A] = for {
+      db <- ZIO.service[DatabaseOps.ServiceOps[C]]
+      result <- db.transaction[R, E, A](zio)
+    } yield result
+  }
+
+
 }
