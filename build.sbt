@@ -5,7 +5,7 @@ ThisBuild / organizationName := "example"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "scala-zio2-tag-partially-applied-types-workshop",
+    name := "scala-zio2-partially-applied-types-workshop",
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % "2.0.9",
       "dev.zio" %% "izumi-reflect" % "2.2.5",
