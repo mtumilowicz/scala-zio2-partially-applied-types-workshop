@@ -1,4 +1,3 @@
-
 # scala-zio2-partially-applied-types-workshop
 * references
     * [Zymposium - ZIO API Design Techniques](https://www.youtube.com/watch?v=48fpPffgnMo)
@@ -13,9 +12,6 @@
         * it may be valuable to first take a look at: https://github.com/mtumilowicz/scala-cats-functional-dependency-injection-workshop
             * chapter about tags
     1. implement `TransactionService.inTransaction` to infer `R`, `E`, `A` types
-    1. implement `EntityJsonMap.getSafe` to infer all types
-        * notice that `EntityJsonMap.getUnsafe` could be invoked like this: `jsonMap.getUnsafe[User, AccountId](AccountId("1"))`
-        * disclaimer: it's example where to NOT use partially applied types - implicit evidence is just enough
 
 ## partially applied arguments
 * some analogy to partially applied types
