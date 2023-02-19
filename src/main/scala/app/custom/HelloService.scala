@@ -1,7 +1,5 @@
 package app.custom
 
-import io.github.gaelrenoux.tranzactio.doobie.Connection
-import io.github.gaelrenoux.tranzactio.{DatabaseOps, DbException}
 import zio.Console.printLine
 import zio._
 
