@@ -1,3 +1,6 @@
+[![Build Status](https://app.travis-ci.com/mtumilowicz/scala-zio2-partially-applied-types-workshop.svg?branch=master)](https://app.travis-ci.com/mtumilowicz/scala-zio2-partially-applied-types-workshop)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 # scala-zio2-partially-applied-types-workshop
 * references
     * [Zymposium - ZIO API Design Techniques](https://www.youtube.com/watch?v=48fpPffgnMo)
