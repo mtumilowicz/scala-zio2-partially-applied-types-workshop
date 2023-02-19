@@ -16,7 +16,7 @@
             * chapter about tags
     1. implement `TransactionService.inTransaction` to infer `R`, `E`, `A` types
 
-## partially applied arguments
+## partially applied arguments 
 * some analogy to partially applied types
 * good to set intuition
 * example
